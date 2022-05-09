@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gin_demo/app_user"
 	_ "gin_demo/config"
+	_ "gin_demo/log"
 	"log"
 	"net/http"
 	"strings"
