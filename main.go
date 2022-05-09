@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"gin_test/app_user"
+	"gin_demo/app_user"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -34,10 +35,22 @@ func main() {
 		})
 	})
 
+	router.GET("/cookie", func(ctx *gin.Context) {
+		name, err := ctx.Cookie("name")
+		if err != nil {
+			ctx.SetCookie("name", "waro", 3600, "/cookie", "127.0.0.1", true, false)
+			ctx.SetCookie("age", "18", 3600, "/", "127.0.0.1", false, true)
+			ctx.SetCookie("phone", "18888888", 3600, "/", "127.0.0.1", true, true)
+		}
+		ctx.JSON(200, gin.H{
+			"name": name,
+		})
+	})
+
 	api := router.Group("/api")
 	{
 		api.Use(jwtMiddleware, authMiddleware)
-		api.GET("/test", hello)
+		api.GET("/hello", hello)
 		api.POST("/login", login)
 	}
 
@@ -78,4 +91,12 @@ func authMiddleware(ctx *gin.Context) {
 	log.Println("auth middleware before")
 	ctx.Next()
 	log.Println("auth middleware after")
+}
+
+func generate4096byte() string {
+	var builder strings.Builder
+	for i := 0; i < 4090; i++ {
+		builder.WriteByte('a')
+	}
+	return builder.String()
 }
