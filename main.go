@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"gin_demo/app_user"
+	_ "gin_demo/config"
 	"log"
 	"net/http"
 	"strings"
