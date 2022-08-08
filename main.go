@@ -5,7 +5,8 @@ import (
 	"gin_demo/app/download"
 	"gin_demo/app/upload"
 	_ "gin_demo/config"
-	_ "gin_demo/log"
+
+	// _ "gin_demo/log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
