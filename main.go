@@ -3,6 +3,7 @@ package main
 import (
 	"gin_demo/app/cookie"
 	"gin_demo/app/download"
+	"gin_demo/app/proxy"
 	"gin_demo/app/upload"
 	_ "gin_demo/config"
 
@@ -31,6 +32,9 @@ func main() {
 
 	downloadApp := router.Group("api/download")
 	download.RegisterRouter(downloadApp)
+
+	proxyApp := router.Group("api/proxy")
+	proxy.RegisterRouter(proxyApp)
 
 	router.Run(":8080")
 }

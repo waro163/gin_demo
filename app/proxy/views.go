@@ -7,12 +7,16 @@ import (
 )
 
 func ProxyDemo(ctx *gin.Context) {
-	req := ctx.Copy()
-	req.Request.Host = "127.0.0.1:8080"
-	transport := new(http.Transport)
-	resp, err := transport.RoundTrip(req.Request)
+	url := "http://127.0.0.1:8081" + ctx.Request.RequestURI
+	req, err := http.NewRequest(ctx.Request.Method, url, ctx.Request.Body)
 	if err != nil {
-		ctx.JSON(http.StatusServiceUnavailable, gin.H{})
+		ctx.JSON(http.StatusInternalServerError, gin.H{"msg": err})
+		return
+	}
+	transport := new(http.Transport)
+	resp, err := transport.RoundTrip(req)
+	if err != nil {
+		ctx.JSON(http.StatusServiceUnavailable, gin.H{"msg": err})
 		return
 	}
 	contentType := resp.Header.Get("Content-Type")
