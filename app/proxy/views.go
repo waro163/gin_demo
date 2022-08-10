@@ -13,7 +13,7 @@ func ProxyDemo(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"msg": err})
 		return
 	}
-	transport := new(http.Transport)
+	transport := http.DefaultTransport //new(http.Transport)
 	resp, err := transport.RoundTrip(req)
 	if err != nil {
 		ctx.JSON(http.StatusServiceUnavailable, gin.H{"msg": err})
