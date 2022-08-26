@@ -9,6 +9,7 @@ import (
 func ProxyDemo(ctx *gin.Context) {
 	url := "http://127.0.0.1:8081" + ctx.Request.RequestURI
 	req, err := http.NewRequest(ctx.Request.Method, url, ctx.Request.Body)
+	req.Header = ctx.Request.Header
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"msg": err})
 		return
