@@ -2,15 +2,29 @@ package download
 
 import (
 	"net/http"
+	"os"
+	"path"
 
 	"github.com/gin-gonic/gin"
 )
 
 func DownloadDemo(ctx *gin.Context) {
-	// ctx.JSON(200, gin.H{
-	// 	"hi": "world",
-	// })
-	ctx.FileAttachment("/Users/waro/work/gin_demo/main.go", "main.go")
+	dir, err := os.Getwd()
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"err_msg": err,
+		})
+		return
+	}
+	file := path.Join(dir, "main.go")
+	info, _ := os.Stat(file)
+	if info.Mode().IsRegular() {
+		ctx.FileAttachment(file, "main.go")
+	} else {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"err_msg": "not found" + file,
+		})
+	}
 
 }
 
