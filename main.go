@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"gin_demo/app/cookie"
 	"gin_demo/app/download"
 	"gin_demo/app/method"
@@ -14,8 +16,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Input struct {
-	Phone string `json:"phone" binding:"required,min=11,max=11"`
+var port uint64
+
+func init() {
+	flag.Uint64Var(&port, "Port", 8080, "web server listen port")
+	flag.Parse()
 }
 
 func main() {
@@ -39,5 +44,5 @@ func main() {
 	proxyApp := router.Group("api/proxy")
 	proxy.RegisterRouter(proxyApp)
 
-	router.Run(":8080")
+	router.Run(fmt.Sprintf(":%d", port))
 }
