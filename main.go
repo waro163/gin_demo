@@ -81,7 +81,7 @@ func tracerProvider(url, name string) (*tracesdk.TracerProvider, error) {
 	// using http directly send
 	// exp, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(url)))
 
-	// using udp send agend
+	// using udp send agent, all setting use default value
 	exp, err := jaeger.New(jaeger.WithAgentEndpoint())
 	if err != nil {
 		return nil, err
