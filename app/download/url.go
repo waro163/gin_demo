@@ -7,4 +7,5 @@ import (
 func RegisterRouter(r *gin.RouterGroup) {
 	r.GET("/demo", DownloadDemo)
 	r.GET("/get_from_remote", RemoteDownload)
+	r.Get("/get_create", DownloadAndCreateFile)
 }
