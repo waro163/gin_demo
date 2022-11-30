@@ -6,5 +6,5 @@ import (
 
 func RegisterRouter(r *gin.RouterGroup) {
 	r.POST("/demo", UploadDemo)
-	r.Any("/upload/multi", UploadToThird)
+	r.Any("/multi", UploadToThird)
 }
