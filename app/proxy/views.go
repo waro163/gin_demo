@@ -25,7 +25,7 @@ func ProxyDemo(ctx *gin.Context) {
 	// values.Add("key", "value")
 	url := baseUrl.ResolveReference(&url.URL{Path: path, RawQuery: values.Encode()})
 
-	// Request Body as reader, for `not get method` could be 412 status response
+	// Request Body as reader, for `not Get method` could be 412 status response
 	// req, err := http.NewRequest(ctx.Request.Method, url.String(), ctx.Request.Body)
 	// so replace bytes.NewReader function
 	body, _ := ioutil.ReadAll(ctx.Request.Body)
