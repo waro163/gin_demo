@@ -12,8 +12,16 @@ import (
 )
 
 func UploadDemo(ctx *gin.Context) {
-	// file, _ := ctx.FormFile("file")
+	// file, err := ctx.FormFile("file")
+	// if err != nil {
+	// 	ctx.JSON(http.StatusInternalServerError, gin.H{"msg": err})
+	// 	return
+	// }
 	// ctx.SaveUploadedFile(file, "./"+file.Filename)
+	// ctx.JSON(http.StatusOK, gin.H{
+	// 	"message": "ok",
+	// })
+	// return
 	// ctx.FileAttachment("./"+file.Filename, file.Filename)
 
 	form, err := ctx.MultipartForm()
