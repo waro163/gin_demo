@@ -43,7 +43,7 @@ func main() {
 	defer tp.Shutdown(context.Background())
 
 	router := gin.Default()
-	router.Use(otelgin.Middleware("gin_demo"))
+	router.Use(otelgin.Middleware("gin_demo", otelgin.WithCustomeSpanOption(AddCustomSpanOption)))
 
 	router.GET("/ping", func(ctx *gin.Context) {
 		ctx.String(http.StatusOK, "pong")
@@ -90,7 +90,7 @@ func tracerProvider(url, name string) (*tracesdk.TracerProvider, error) {
 		// Always be sure to batch in production.
 		tracesdk.WithBatcher(exp),
 		// tracesdk.WithSampler(tracesdk.AlwaysSample()),
-		tracesdk.WithSampler(tracesdk.ParentBased(tracesdk.TraceIDRatioBased(0.5))),
+		tracesdk.WithSampler(tracesdk.ParentBased(tracesdk.TraceIDRatioBased(1))),
 		// Record information about this application in a Resource.
 		tracesdk.WithResource(resource.NewWithAttributes(
 			semconv.SchemaURL,

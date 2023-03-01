@@ -9,4 +9,7 @@ require (
 	go.opentelemetry.io/otel v1.10.0
 	go.opentelemetry.io/otel/exporters/jaeger v1.10.0
 	go.opentelemetry.io/otel/sdk v1.10.0
+	go.opentelemetry.io/otel/trace v1.10.0
 )
+
+replace go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin => github.com/waro163/opentelemetry-go-contrib/instrumentation/github.com/gin-gonic/gin/otelgin v0.34.1
