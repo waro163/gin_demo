@@ -2,12 +2,32 @@ package download
 
 import (
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"path"
 
 	"github.com/gin-gonic/gin"
 )
+
+func ShowFileDemo(ctx *gin.Context) {
+	dir, err := os.Getwd()
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"err_msg": err,
+		})
+		return
+	}
+	filePath := path.Join(dir, "/static/go-demo.png")
+	fileContent, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"err_msg": "read file error:" + err.Error(),
+		})
+		return
+	}
+	ctx.Data(http.StatusOK, "image/png", fileContent)
+}
 
 func DownloadDemo(ctx *gin.Context) {
 	dir, err := os.Getwd()
