@@ -32,9 +32,10 @@ func PostMethod(ctx *gin.Context) {
 	}
 	code, ok := res["code"]
 	if ok {
-		httpCode, isNum := code.(int64)
+		httpCode, isNum := code.(float64)
 		if isNum && httpCode >= 200 && httpCode < 600 {
 			ctx.JSON(int(httpCode), res)
+			return
 		}
 	}
 	ctx.JSON(http.StatusOK, res)
