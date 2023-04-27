@@ -54,14 +54,15 @@ func UploadToThird(ctx *gin.Context) {
 		return
 	}
 	req.Header = ctx.Request.Header
-	transport := http.DefaultTransport
-	res, err := transport.RoundTrip(req)
+	// transport := http.DefaultTransport
+	// resp, err := transport.RoundTrip(req)
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"msg": err})
 		return
 	}
 	// ctx.Data(res.StatusCode, res.Header.Get("Content-Type"), res.Body)
-	ctx.DataFromReader(res.StatusCode, res.ContentLength, res.Header.Get("Content-Type"), res.Body, nil)
+	ctx.DataFromReader(resp.StatusCode, resp.ContentLength, resp.Header.Get("Content-Type"), resp.Body, nil)
 }
 
 type FormData struct {
