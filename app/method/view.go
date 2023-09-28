@@ -2,7 +2,7 @@ package method
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,7 +15,7 @@ func GetMethod(ctx *gin.Context) {
 }
 
 func PostMethod(ctx *gin.Context) {
-	body, err := ioutil.ReadAll(ctx.Request.Body)
+	body, err := io.ReadAll(ctx.Request.Body)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"err_msg": err,
