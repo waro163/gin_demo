@@ -11,10 +11,9 @@ import (
 	"gin_demo/app/upload"
 	_ "gin_demo/config"
 	"log"
-
-	// _ "gin_demo/log"
 	"net/http"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 	"go.opentelemetry.io/otel"
@@ -43,6 +42,7 @@ func main() {
 	defer tp.Shutdown(context.Background())
 
 	router := gin.Default()
+	router.Use(cors.Default())
 	router.Use(otelgin.Middleware("gin_demo"))
 
 	router.GET("/ping", func(ctx *gin.Context) {
