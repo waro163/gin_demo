@@ -8,6 +8,7 @@ import (
 	"gin_demo/app/download"
 	"gin_demo/app/method"
 	"gin_demo/app/proxy"
+	"gin_demo/app/sse"
 	"gin_demo/app/upload"
 	_ "gin_demo/config"
 	"log"
@@ -62,6 +63,9 @@ func main() {
 
 	proxyApp := router.Group("api/proxy")
 	proxy.RegisterRouter(proxyApp)
+
+	sseApp := router.Group("api/sse")
+	sse.RegisterRouter(sseApp)
 
 	router.Run(fmt.Sprintf(":%d", port))
 }
