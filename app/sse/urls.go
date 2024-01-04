@@ -6,4 +6,5 @@ import (
 
 func RegisterRouter(r *gin.RouterGroup) {
 	r.Any("/event", gin.WrapF(sseHandle))
+	r.Any("/gin", ServerSendEvents)
 }

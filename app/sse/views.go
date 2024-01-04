@@ -9,7 +9,7 @@ import (
 )
 
 func ServerSendEvents(c *gin.Context) {
-	gin.WrapF(sseHandle)
+	c.SSEvent("test", fmt.Sprintf("data: %v\n", time.Now().Format(time.RFC3339)))
 }
 
 func sseHandle(w http.ResponseWriter, r *http.Request) {
