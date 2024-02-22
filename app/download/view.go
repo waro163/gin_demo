@@ -43,7 +43,13 @@ func DownloadDemo(ctx *gin.Context) {
 		return
 	}
 	file := path.Join(dir, "/static/go-demo.png")
-	info, _ := os.Stat(file)
+	info, err := os.Stat(file)
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"err_msg": "os stat file error: " + err.Error(),
+		})
+		return
+	}
 	if info.Mode().IsRegular() {
 		ctx.FileAttachment(file, "demo.png")
 	} else {
