@@ -14,6 +14,7 @@ From alpine
 ENV TZ Asia/Shanghai
 COPY --from=0 /workdir/main /workdir/
 COPY ./config.yaml /workdir/
+COPY ./static /workdir/static/
 WORKDIR /workdir
 RUN apk add bash
 
