@@ -1,8 +1,8 @@
 package download
 
 import (
+	"bytes"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"path"
@@ -18,15 +18,20 @@ func ShowFileDemo(ctx *gin.Context) {
 		})
 		return
 	}
-	filePath := path.Join(dir, "/static/go-demo.png")
-	fileContent, err := ioutil.ReadFile(filePath)
+	filePath := path.Join(dir, "/static/tesla-shiming.wav")
+	fileContent, err := os.ReadFile(filePath)
 	if err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
 			"err_msg": "read file error:" + err.Error(),
 		})
 		return
 	}
-	ctx.Data(http.StatusOK, "image/png", fileContent)
+	// ctx.Data(http.StatusOK, "audio/wav", fileContent)
+	reader := bytes.NewReader(fileContent)
+	extraHeaders := map[string]string{
+		"Content-Disposition": `attachment; filename="gopher.wav"`,
+	}
+	ctx.DataFromReader(http.StatusOK, int64(len(fileContent)), "audio/wav", reader, extraHeaders)
 }
 
 func DownloadDemo(ctx *gin.Context) {
@@ -78,7 +83,7 @@ func DownloadAndCreateFile(ctx *gin.Context) {
 
 	reader := response.Body
 	defer reader.Close()
-	// we can get file name ant type from Content-Disposition reaponse header
+	// we can get file name ant type from Content-Disposition response header
 	fileName := "demo.png"
 	file, err := os.Create(fileName)
 	if err != nil {
