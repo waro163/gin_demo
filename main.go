@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"fmt"
 	"gin_demo/app/cookie"
@@ -39,8 +38,8 @@ func init() {
 
 func main() {
 
-	tp := initOteleMetry(servername)
-	defer tp.Shutdown(context.Background())
+	// tp := initOteleMetry(servername)
+	// defer tp.Shutdown(context.Background())
 
 	router := gin.Default()
 	router.Use(cors.Default())
