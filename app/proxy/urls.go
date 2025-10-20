@@ -7,4 +7,6 @@ import (
 func RegisterRouter(r *gin.RouterGroup) {
 	r.Any("/normal/*ping", ProxyDemo)
 	r.Any("/tracing/*any", TracingDemo)
+
+	r.Any("/http/proxy/*proxyPath", ProxyApi())
 }
