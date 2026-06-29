@@ -24,6 +24,10 @@ func UploadDemo(ctx *gin.Context) {
 	// return
 	// ctx.FileAttachment("./"+file.Filename, file.Filename)
 
+	headerContentType := ctx.GetHeader("Content-Type")
+	fmt.Println("---------header content type---------")
+	fmt.Println(headerContentType)
+
 	form, err := ctx.MultipartForm()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"msg": err})
@@ -39,6 +43,9 @@ func UploadDemo(ctx *gin.Context) {
 	for fieldName, files := range form.File {
 		for _, file := range files {
 			fmt.Println(fieldName, " : ", file.Filename)
+			for key, values := range file.Header {
+				fmt.Println("file -- Header:", key, "Values:", values)
+			}
 		}
 	}
 	ctx.JSON(http.StatusOK, gin.H{
